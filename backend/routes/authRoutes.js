@@ -68,8 +68,7 @@ const updateProfileValidations = [
 ];
 
 // Route definitions
-// router.post("/register", validate(registerValidations), register);
-router.post("/register", register);
+router.post("/register", validate(registerValidations), register);
 router.post("/login", validate(loginValidations), login);
 
 // Apply auth middleware to protect subsequent endpoints
