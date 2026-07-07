@@ -10,24 +10,27 @@ import {
   TrendingUp
 } from "lucide-react";
 
+import { useEffect } from "react";
 import { useLeads } from "../context/LeadContext";
 
 function Dashboard() {
-  const { leads } = useLeads();
+  const { leads, stats, fetchStats, fetchLeads } = useLeads();
 
-  const totalLeads = leads.length;
-  const wonLeads = leads.filter(
-    (lead) => lead.status === "Won"
-  ).length;
+  useEffect(() => {
+    fetchLeads({ limit: 10 }); // Get the 10 most recent leads
+    fetchStats();
+  }, []);
 
-  const lostLeads = leads.filter(
-    (lead) => lead.status === "Lost"
-  ).length;
+  const totalLeads = stats ? stats.totalLeads : leads.length;
+  const wonLeads = stats ? stats.wonLeads : leads.filter((lead) => lead.status === "Won").length;
+  const lostLeads = stats ? stats.lostLeads : leads.filter((lead) => lead.status === "Lost").length;
+  const conversionRate = stats
+    ? stats.conversionRate
+    : totalLeads > 0
+    ? ((wonLeads / totalLeads) * 100).toFixed(1)
+    : 0;
+  const growthRate = stats ? stats.growthRate : "0";
 
-  const conversionRate =
-    totalLeads > 0
-      ? ((wonLeads / totalLeads) * 100).toFixed(1)
-      : 0;
 
   return (
     <div className="space-y-8  text-gray-900 dark:text-white">

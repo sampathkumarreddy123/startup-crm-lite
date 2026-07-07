@@ -6,7 +6,7 @@ import StatusBadge from "./StatusBadge";
 
 function LeadTable({ leads, onEdit, onDelete }) {
   return (
-    <div className="overflow-x-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm p-6 transition-colors duration-200">
+    <div className="overflow-x-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm p-6 transition-colors duration-200 ">
       <table className="w-full text-left">
         <thead>
           <tr>

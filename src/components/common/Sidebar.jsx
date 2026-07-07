@@ -2,12 +2,17 @@ import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
   Users,
-  BarChart3
+  BarChart3,
+  LogOut
 } from "lucide-react";
 
 import DarkModeToggle from "./DarkModeToggle";
+import { useAuth } from "../../context/AuthContext";
+
 
 function Sidebar() {
+  const { logout } = useAuth();
+
   const links = [
     {
       name: "Dashboard",
@@ -79,11 +84,30 @@ function Sidebar() {
           ))}
         </nav>
 
-        {/* Bottom Toggle */}
-        <div className="mt-auto">
+        {/* Bottom Actions */}
+        <div className="mt-auto flex flex-col gap-2">
           <DarkModeToggle />
+          <button
+            onClick={logout}
+            className="
+              flex items-center
+              justify-center lg:justify-start
+              gap-3
+              min-h-[44px]
+              px-4
+              rounded-xl
+              text-red-500
+              hover:bg-red-50 dark:hover:bg-red-950/20
+              transition-colors duration-200
+            "
+            title="Logout"
+          >
+            <LogOut size={20} />
+            <span className="hidden lg:block">Logout</span>
+          </button>
         </div>
       </aside>
+
 
       {/* Mobile Bottom Nav */}
       <nav
@@ -117,7 +141,15 @@ function Sidebar() {
             {link.icon}
           </NavLink>
         ))}
+        <button
+          onClick={logout}
+          className="p-3 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20"
+          title="Logout"
+        >
+          <LogOut size={20} />
+        </button>
       </nav>
+
     </>
   );
 }

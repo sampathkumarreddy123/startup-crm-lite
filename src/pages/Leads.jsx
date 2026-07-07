@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useLeads } from "../context/LeadContext";
+import { useLocation } from "react-router-dom";
 
 import LeadForm from "../components/leads/LeadForm";
 import LeadCard from "../components/leads/LeadCard";
@@ -18,6 +19,20 @@ function Leads() {
   const { leads, addLead, updateLead, deleteLead } = useLeads();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedLead, setSelectedLead] = useState(null);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location && location.state && location.state.openNew) {
+      setIsModalOpen(true);
+      // Clear the navigation state to avoid reopening on back/refresh
+      try {
+        window.history.replaceState({}, document.title);
+      } catch (e) {
+        // ignore
+      }
+    }
+  }, [location]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
