@@ -7,7 +7,8 @@ const apiBaseUrl = import.meta.env.VITE_API_URL || (import.meta.env.DEV
   : "https://startup-crm-lite-production-071e.up.railway.app");
 
 const api = axios.create({
-  baseURL: apiBaseUrl
+  baseURL: apiBaseUrl,
+  timeout: 10000
 });
 
 // Request Interceptor: Attach JWT Token if available
@@ -41,7 +42,8 @@ api.interceptors.response.use(
     }
 
     // Check for network connectivity errors
-    if (!error.response || error.code === "ERR_NETWORK") {
+    if (!error.response || error.code === "ERR_NETWORK" || error.code === "ECONNABORTED") {
+      console.error("API request failed", error);
       toast.error("Cannot connect to server. Check your connection.");
     }
 
