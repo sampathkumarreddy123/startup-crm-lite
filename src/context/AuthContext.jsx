@@ -79,8 +79,13 @@ export function AuthProvider({ children }) {
       }
       return { success: false, message: res.message || "Failed to register" };
     } catch (error) {
-      const errorMsg = error.response?.data?.message || "Email already in use";
-      return { success: false, message: errorMsg };
+      const errorMsg = error.response?.data?.message || "Unable to create account";
+      const fieldErrors = error.response?.data?.errors;
+      return {
+        success: false,
+        message: errorMsg,
+        errors: fieldErrors || []
+      };
     } finally {
       setIsLoading(false);
     }

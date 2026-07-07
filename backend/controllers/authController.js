@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import { successResponse, errorResponse } from "../utils/apiResponse.js";
+import { normalizeEmail } from "../utils/email.js";
 
 /**
  * Generate a JWT for a user.
@@ -20,9 +21,10 @@ export const generateToken = (userId) => {
 export const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
+    const normalizedEmail = normalizeEmail(email);
 
     // Check if user already exists
-    const userExists = await User.findOne({ email });
+    const userExists = await User.findOne({ email: normalizedEmail });
     if (userExists) {
       return errorResponse(res, "Email already exists", 409, [
         { field: "email", message: "Email is already in use" }
@@ -32,7 +34,7 @@ export const register = async (req, res, next) => {
     // Create new User document
     const user = await User.create({
       name,
-      email,
+      email: normalizedEmail,
       password
     });
 
@@ -56,9 +58,10 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    const normalizedEmail = normalizeEmail(email);
 
     // Find user by email and explicitly include password field
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({ email: normalizedEmail }).select("+password");
 
     // Check credentials (never say which one is wrong specifically for security)
     if (!user || !(await user.comparePassword(password))) {

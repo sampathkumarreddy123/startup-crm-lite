@@ -41,7 +41,12 @@ export default function Register() {
       toast.success("Account created successfully!");
       navigate("/");
     } else {
-      toast.error(res.message || "Failed to create account");
+      if (Array.isArray(res.errors) && res.errors.length > 0) {
+        const firstError = res.errors[0];
+        toast.error(firstError.message || res.message || "Failed to create account");
+      } else {
+        toast.error(res.message || "Failed to create account");
+      }
     }
   };
 
