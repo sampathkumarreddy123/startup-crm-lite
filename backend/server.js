@@ -13,6 +13,7 @@ import { connectDB } from "./config/database.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import authRoutes from "./routes/authRoutes.js";
 import leadRoutes from "./routes/leadRoutes.js";
+import { createHealthPayload, getHealthStatusCode } from "./utils/health.js";
 
 // Load environment variables
 dotenv.config();
@@ -107,11 +108,14 @@ app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 // );
 
 // 7. Health Check Endpoint
+let dbConnected = false;
+
 app.get("/api/health", (req, res) => {
-  res.status(200).json({
-    status: "OK",
-    timestamp: new Date()
-  });
+  res.status(getHealthStatusCode(dbConnected)).json(createHealthPayload(dbConnected));
+});
+
+app.get("/health", (req, res) => {
+  res.status(getHealthStatusCode(dbConnected)).json(createHealthPayload(dbConnected));
 });
 
 // 8. Register Routes
@@ -132,8 +136,13 @@ app.use(errorHandler);
 
 // Connect to MongoDB and start the server
 const startServer = async () => {
-  await connectDB();
-  
+  try {
+    await connectDB();
+    dbConnected = true;
+  } catch (error) {
+    console.error("MongoDB connection failed, continuing to serve health checks:", error.message);
+  }
+
   const server = app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || "development"} mode`);
   });
