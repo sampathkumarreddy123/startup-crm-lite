@@ -2,10 +2,12 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 // Create Axios instance with a sensible fallback for local dev and production
+const apiBaseUrl = import.meta.env.VITE_API_URL || (import.meta.env.DEV
+  ? "http://localhost:5000"
+  : (typeof window !== "undefined" ? window.location.origin : ""));
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || (typeof window !== "undefined" && window.location.hostname !== "localhost"
-    ? window.location.origin
-    : "http://localhost:5000")
+  baseURL: apiBaseUrl
 });
 
 // Request Interceptor: Attach JWT Token if available
