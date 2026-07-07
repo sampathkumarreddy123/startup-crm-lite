@@ -21,7 +21,15 @@ export const generateToken = (userId) => {
 export const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
-    const normalizedEmail = normalizeEmail(email);
+    const normalizedEmail = normalizeEmail(email || req.body?.emailAddress || req.body?.userEmail);
+
+    if (!name || !normalizedEmail || !password) {
+      return errorResponse(res, "Please provide name, email, and password", 400, [
+        { field: "name", message: "Name is required" },
+        { field: "email", message: "Email is required" },
+        { field: "password", message: "Password is required" }
+      ]);
+    }
 
     // Check if user already exists
     const userExists = await User.findOne({ email: normalizedEmail });

@@ -12,7 +12,13 @@ const authService = {
    */
   async register(name, email, password) {
     const payloadEmail = email?.trim().toLowerCase();
-    const response = await api.post("/api/auth/register", { name, email: payloadEmail, password });
+    const response = await api.post("/api/auth/register", {
+      name,
+      email: payloadEmail,
+      emailAddress: payloadEmail,
+      userEmail: payloadEmail,
+      password
+    });
     return response.data;
   },
 
