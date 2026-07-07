@@ -22,7 +22,7 @@ function LeadTable({ leads, onEdit, onDelete }) {
 
         <tbody>
           {leads.map((lead) => (
-            <tr key={lead.id} className="border-t">
+            <tr key={lead._id || lead.id} className="border-t">
               <td className="py-4">{lead.name}</td>
               <td>{lead.company}</td>
               <td>
@@ -30,7 +30,7 @@ function LeadTable({ leads, onEdit, onDelete }) {
               </td>
               <td>{lead.email}</td>
               <td>{lead.source}</td>
-              <td>{lead.date}</td>
+              <td>{lead.createdAt ? new Date(lead.createdAt).toLocaleDateString() : "—"}</td>
               <td>
                 <button
                   onClick={() => onEdit(lead)}
@@ -40,7 +40,7 @@ function LeadTable({ leads, onEdit, onDelete }) {
                 </button>
 
                 <button
-                  onClick={() => onDelete(lead.id)}
+                  onClick={() => onDelete(lead._id || lead.id)}
                   className="text-red-500"
                 >
                   Delete

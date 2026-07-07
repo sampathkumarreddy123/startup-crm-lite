@@ -32,7 +32,6 @@ import {
 
 function Analytics() {
   const { leads } = useLeads();
- console.log(leads);
   const {
     totalLeads,
     statusDistribution,

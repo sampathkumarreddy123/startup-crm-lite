@@ -1,10 +1,10 @@
-import { errorResponse } from "../utils/apiResponse.js";
+// errorResponse is not used directly here; handler builds response manually
 
 /**
  * Global Express Error Handler Middleware.
  * Catches all unhandled errors and format them for the client.
  */
-export const errorHandler = (err, req, res, next) => {
+export const errorHandler = (err, req, res, _next) => {
   // Log the full error to console for debugging in dev
   if (process.env.NODE_ENV !== "production") {
     console.error(err);

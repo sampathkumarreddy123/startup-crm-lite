@@ -24,11 +24,12 @@ function Leads() {
 
   useEffect(() => {
     if (location && location.state && location.state.openNew) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsModalOpen(true);
       // Clear the navigation state to avoid reopening on back/refresh
       try {
         window.history.replaceState({}, document.title);
-      } catch (e) {
+      } catch {
         // ignore
       }
     }
@@ -53,7 +54,7 @@ function Leads() {
 
   const saveLead = function (lead) {
   if (selectedLead) {
-    updateLead(selectedLead.id, lead);
+    updateLead(selectedLead._id || selectedLead.id, lead);
     toast.success("Lead updated");
   } else {
     addLead(lead);
@@ -64,8 +65,8 @@ function Leads() {
   setSelectedLead(null);
 };
 
-const removeLead = function (id) {
-  deleteLead(id);
+const removeLead = function (leadId) {
+  deleteLead(leadId);
   toast.error("Lead deleted");
 };
 
@@ -108,7 +109,7 @@ const removeLead = function (id) {
           <div className="grid grid-cols-1 md:hidden gap-4">
             {filteredLeads.map((lead) => (
               <LeadCard
-                key={lead.id}
+                key={lead._id || lead.id}
                 lead={lead}
                 onEdit={editLead}
                 onDelete={removeLead}

@@ -23,11 +23,11 @@ function RecentLeads({ leads }) {
 
           <tbody>
             {recent.map((lead) => (
-              <tr key={lead.id} className="border-b">
+              <tr key={lead._id || lead.id} className="border-b">
                 <td className="py-3">{lead.name}</td>
                 <td className="py-3">{lead.company}</td>
                 <td className="py-3">{lead.status}</td>
-                <td className="py-3">{lead.date}</td>
+                <td className="py-3">{lead.createdAt ? new Date(lead.createdAt).toLocaleDateString() : "—"}</td>
               </tr>
             ))}
           </tbody>

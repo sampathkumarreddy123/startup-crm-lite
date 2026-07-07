@@ -22,7 +22,7 @@ export function LeadProvider({ children }) {
   const [stats, setStats] = useState(null);
   const [monthlyStats, setMonthlyStats] = useState([]);
   
-  const { isAuthenticated } = useAuth() || {};
+  const { isAuthenticated } = useAuth();
 
   /**
    * Fetch leads from server based on search, status filters, and pagination.
@@ -150,6 +150,7 @@ export function LeadProvider({ children }) {
   // Fetch initial data upon login validation
   useEffect(() => {
     if (isAuthenticated) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       fetchLeads();
       fetchStats();
       fetchMonthlyStats();
@@ -158,6 +159,7 @@ export function LeadProvider({ children }) {
       setStats(null);
       setMonthlyStats([]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   return (

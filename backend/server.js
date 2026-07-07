@@ -3,7 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import mongoSanitize from "express-mongo-sanitize";
+// import mongoSanitize from "express-mongo-sanitize"; // Disabled - re-enable if needed
 import rateLimit from "express-rate-limit";
 import mongoose from "mongoose";
 import path from "path";

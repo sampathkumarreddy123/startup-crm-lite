@@ -19,6 +19,7 @@ function Dashboard() {
   useEffect(() => {
     fetchLeads({ limit: 10 }); // Get the 10 most recent leads
     fetchStats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const totalLeads = stats ? stats.totalLeads : leads.length;
@@ -29,7 +30,6 @@ function Dashboard() {
     : totalLeads > 0
     ? ((wonLeads / totalLeads) * 100).toFixed(1)
     : 0;
-  const growthRate = stats ? stats.growthRate : "0";
 
 
   return (

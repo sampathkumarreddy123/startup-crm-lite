@@ -23,7 +23,7 @@ function LeadCard({ lead, onEdit, onDelete }) {
           <Pencil size={18} />
         </button>
 
-        <button onClick={() => onDelete(lead.id)}>
+        <button onClick={() => onDelete(lead._id || lead.id)}>
           <Trash2 size={18} className="text-red-500" />
         </button>
       </div>
