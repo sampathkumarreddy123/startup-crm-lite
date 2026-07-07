@@ -6,6 +6,8 @@ import dotenv from "dotenv";
 import mongoSanitize from "express-mongo-sanitize";
 import rateLimit from "express-rate-limit";
 import mongoose from "mongoose";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import { connectDB } from "./config/database.js";
 import { errorHandler } from "./middleware/errorHandler.js";
@@ -15,12 +17,15 @@ import leadRoutes from "./routes/leadRoutes.js";
 // Load environment variables
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 /**
  * Validate that all required environment variables are present.
  * Exits the process if any required keys are missing.
  */
 const checkRequiredEnvVars = () => {
-  const required = ["MONGODB_URI", "JWT_SECRET", "PORT"];
+  const required = ["MONGODB_URI", "JWT_SECRET"];
   const missing = [];
 
   required.forEach((key) => {
@@ -113,7 +118,16 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/leads", leadRoutes);
 
-// 9. Global Error Handling Middleware (Registered LAST)
+// 9. Serve the frontend build in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "..", "dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "dist", "index.html"));
+  });
+}
+
+// 10. Global Error Handling Middleware (Registered LAST)
 app.use(errorHandler);
 
 // Connect to MongoDB and start the server
