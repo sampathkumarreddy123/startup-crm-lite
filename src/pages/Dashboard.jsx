@@ -33,18 +33,18 @@ function Dashboard() {
 
 
   return (
-    <div className="space-y-8  text-gray-900 dark:text-white">
-      <div>
-        <h1 className="text-3xl font-bold transition-colors duration-200">
+    <div className="w-full space-y-6 text-gray-900 dark:text-white sm:space-y-8">
+      <div className="space-y-2">
+        <h1 className="text-2xl font-bold transition-colors duration-200 sm:text-3xl">
           Dashboard
         </h1>
 
-        <p className="text-slate-500 dark:text-gray-400 mt-2">
+        <p className="text-sm text-slate-500 dark:text-gray-400 sm:text-base">
           Welcome back. Here's your pipeline.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 xl:grid-cols-4">
         <StatsCard
           title="Total Leads"
           value={totalLeads}

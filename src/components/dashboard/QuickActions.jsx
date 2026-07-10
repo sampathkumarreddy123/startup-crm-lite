@@ -42,19 +42,19 @@ function QuickActions() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6">
-      <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
+    <div className="rounded-2xl bg-white p-6 shadow-sm dark:bg-gray-800">
+      <h2 className="mb-4 text-lg font-semibold">Quick Actions</h2>
 
-      <div className="flex flex-col gap-4">
-        <button onClick={handleAddNew} className="bg-blue-600 text-white py-3 rounded-xl">
+      <div className="flex flex-col gap-3">
+        <button onClick={handleAddNew} className="min-h-[44px] rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">
           Add New Lead
         </button>
 
-        <button onClick={handleViewAll} className="bg-slate-200 text-slate-800 py-3 rounded-xl">
+        <button onClick={handleViewAll} className="min-h-[44px] rounded-xl bg-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600">
           View All Leads
         </button>
 
-        <button onClick={handleExport} className="bg-green-500 text-white py-3 rounded-xl">
+        <button onClick={handleExport} className="min-h-[44px] rounded-xl bg-green-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-green-700">
           Export Data
         </button>
       </div>

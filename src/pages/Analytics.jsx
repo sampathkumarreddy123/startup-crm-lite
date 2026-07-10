@@ -60,14 +60,14 @@ function Analytics() {
   }
 
   return (
-    <div className="space-y-8  text-gray-900 dark:text-white">
+    <div className="w-full space-y-6 text-gray-900 dark:text-white sm:space-y-8">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold transition-colors duration-200">
+      <div className="space-y-2">
+        <h1 className="text-2xl font-bold transition-colors duration-200 sm:text-3xl">
           Analytics Dashboard
         </h1>
 
-        <p className="text-slate-600 mt-2">
+        <p className="text-sm text-slate-600 dark:text-slate-400 sm:text-base">
           Track sales performance and growth trends.
         </p>
       </div>
@@ -103,7 +103,7 @@ function Analytics() {
       </div>
 
       {/* Advanced Analytics Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
         {/* Heatmap */}
         <ActivityHeatmap data={heatmapData} />
 

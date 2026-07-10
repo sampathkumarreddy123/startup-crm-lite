@@ -94,17 +94,17 @@ function LeadForm({ initialData, onSubmit, onCancel }) {
         </select>
       </div>
 
-      <div className="flex gap-4">
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg">
-          Save
-        </button>
-
+      <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row">
         <button
           type="button"
           onClick={onCancel}
-          className="bg-gray-300 px-4 py-2 rounded-lg"
+          className="min-h-[44px] rounded-lg bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600"
         >
           Cancel
+        </button>
+
+        <button className="min-h-[44px] rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700">
+          Save
         </button>
       </div>
     </form>

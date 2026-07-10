@@ -16,11 +16,13 @@ function AppContent() {
   }
 
   return (
-    <div className="flex bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
       <Sidebar />
 
-      <main className="flex-1 p-4 md:p-6 pb-24 md:pb-6">
-        <AppRoutes />
+      <main className="flex-1 overflow-x-hidden p-3 pb-24 sm:p-4 md:p-6 md:pb-6">
+        <div className="mx-auto w-full max-w-7xl">
+          <AppRoutes />
+        </div>
       </main>
     </div>
   );

@@ -76,15 +76,15 @@ const removeLead = function (leadId) {
   };
 
   return (
-    <div className="space-y-6  text-gray-900 dark:text-white">
+    <div className="w-full space-y-6 text-gray-900 dark:text-white">
       <Toaster />
 
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold transition-colors duration-200">Lead Management</h1>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-bold transition-colors duration-200 sm:text-3xl">Lead Management</h1>
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-blue-600 text-white px-4 py-3 rounded-xl"
+          className="w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 sm:w-auto"
         >
           Add Lead
         </button>
@@ -129,13 +129,8 @@ const removeLead = function (leadId) {
       )}
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/40 flex justify-center items-center">
-          <div className="
-              w-full h-full md:h-auto md:max-w-lg
-            bg-white dark:bg-gray-800
-            p-6
-            md:rounded-2xl
-            ">
+        <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/40 p-3 sm:p-4 md:p-6">
+          <div className="w-full max-w-lg rounded-2xl bg-white p-4 shadow-2xl dark:bg-gray-800 sm:p-6 md:my-6">
             <LeadForm
               initialData={selectedLead}
               onSubmit={saveLead}

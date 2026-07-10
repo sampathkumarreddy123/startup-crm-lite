@@ -30,7 +30,7 @@ function SearchBar({ value, onChange }) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Search by name, company, or email..."
-        className="w-full border rounded-xl py-3 pl-12 pr-12"
+        className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-12 pr-12 text-sm text-slate-900 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:ring-blue-500/30"
       />
 
       {input && (
