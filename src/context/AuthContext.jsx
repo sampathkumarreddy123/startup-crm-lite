@@ -22,7 +22,6 @@ export function AuthProvider({ children }) {
             setUser(res.data);
             setToken(storedToken);
           } else {
-            // Token is invalid/expired
             authService.logout();
             setUser(null);
             setToken(null);
@@ -92,6 +91,23 @@ export function AuthProvider({ children }) {
   };
 
   /**
+   * Update the current user's profile details.
+   */
+  const updateProfile = async (profileData) => {
+    try {
+      const res = await authService.updateProfile(profileData);
+      if (res && res.success && res.data) {
+        setUser(res.data);
+        return { success: true, data: res.data };
+      }
+      return { success: false, message: res?.message || "Unable to update profile" };
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || "Unable to update profile";
+      return { success: false, message: errorMsg };
+    }
+  };
+
+  /**
    * Log out the current user.
    */
   const logout = () => {
@@ -108,6 +124,7 @@ export function AuthProvider({ children }) {
         isLoading,
         login,
         register,
+        updateProfile,
         logout,
         isAuthenticated: !!token
       }}

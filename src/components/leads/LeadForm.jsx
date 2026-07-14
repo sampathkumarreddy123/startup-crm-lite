@@ -52,7 +52,7 @@ function LeadForm({ initialData, onSubmit, onCancel }) {
             name={field}
             value={formData[field]}
             onChange={handleChange}
-            className="w-full border p-3 rounded-lg"
+            className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
           />
           {errors[field] && (
             <p className="text-red-500 text-sm">{errors[field]}</p>
@@ -66,7 +66,7 @@ function LeadForm({ initialData, onSubmit, onCancel }) {
           name="status"
           value={formData.status}
           onChange={handleChange}
-          className="w-full border p-3 rounded-lg"
+          className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
         >
           <option>New</option>
           <option>Contacted</option>
@@ -83,7 +83,7 @@ function LeadForm({ initialData, onSubmit, onCancel }) {
           name="source"
           value={formData.source}
           onChange={handleChange}
-          className="w-full border p-3 rounded-lg"
+          className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
         >
           <option>Website</option>
           <option>Referral</option>

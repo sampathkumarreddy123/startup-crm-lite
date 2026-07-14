@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const Leads = lazy(() => import("../pages/Leads"));
 const Analytics = lazy(() => import("../pages/Analytics"));
+const Profile = lazy(() => import("../pages/Profile"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
@@ -52,6 +53,7 @@ function AppRoutes() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/leads" element={<Leads />} />
           <Route path="/analytics" element={<Analytics />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
 
         {/* 404 Route */}
