@@ -8,10 +8,11 @@ const apiBaseUrl = import.meta.env.VITE_API_URL || (import.meta.env.DEV
 
 const api = axios.create({
   baseURL: apiBaseUrl,
-  timeout: 10000
+  timeout: 10000,
+  withCredentials: true // ← Required for HTTP-only cookie (Google OAuth) to be sent
 });
 
-// Request Interceptor: Attach JWT Token if available
+// Request Interceptor: Attach JWT Bearer Token if available (email/password flow)
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("crm-token");
@@ -32,10 +33,11 @@ api.interceptors.response.use(
     // Check for 401 Unauthorized errors
     if (error.response && error.response.status === 401) {
       localStorage.removeItem("crm-token");
-      // Check if we are not already on the login or register pages to avoid infinite redirect loops
+      // Avoid infinite redirect loops
       if (
         window.location.pathname !== "/login" &&
-        window.location.pathname !== "/register"
+        window.location.pathname !== "/register" &&
+        window.location.pathname !== "/auth/callback"
       ) {
         window.location.href = "/login";
       }

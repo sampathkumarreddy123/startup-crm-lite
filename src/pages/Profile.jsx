@@ -121,8 +121,8 @@ const Profile = memo(function Profile() {
     URL.revokeObjectURL(url);
   }, [profile, recentActivities]);
 
-  const handleLogout = useCallback(() => {
-    logout();
+  const handleLogout = useCallback(async () => {
+    await logout();
     navigate("/login");
   }, [logout, navigate]);
 

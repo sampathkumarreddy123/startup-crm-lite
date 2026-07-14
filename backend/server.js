@@ -3,20 +3,28 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
-// import mongoSanitize from "express-mongo-sanitize"; // Disabled - re-enable if needed
 import rateLimit from "express-rate-limit";
 import mongoose from "mongoose";
 import path from "path";
+import cookieParser from "cookie-parser";
+import session from "express-session";
 import { fileURLToPath } from "url";
 
 import { connectDB } from "./config/database.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import passportConfig from "./config/passport.js";
 import authRoutes from "./routes/authRoutes.js";
 import leadRoutes from "./routes/leadRoutes.js";
 import { createHealthPayload, getHealthStatusCode } from "./utils/health.js";
 
 // Load environment variables
-dotenv.config();
+dotenv.config({
+  path: path.resolve(process.cwd(), ".env"),
+});
+
+console.log("Current Directory:", process.cwd());
+console.log("Loaded GOOGLE_CLIENT_ID:", process.env.GOOGLE_CLIENT_ID);
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,7 +34,7 @@ const __dirname = path.dirname(__filename);
  * Exits the process if any required keys are missing.
  */
 const checkRequiredEnvVars = () => {
-  const required = ["MONGODB_URI", "JWT_SECRET"];
+  const required = ["MONGODB_URI", "JWT_SECRET", "SESSION_SECRET"];
   const missing = [];
 
   required.forEach((key) => {
@@ -49,7 +57,11 @@ const PORT = process.env.PORT || 5000;
 const isProd = process.env.NODE_ENV === "production";
 
 // 1. Security Headers via Helmet
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" } // Allow Google avatar images
+  })
+);
 
 // 2. Request Logging via Morgan
 if (isProd) {
@@ -59,55 +71,70 @@ if (isProd) {
 }
 
 // 3. CORS Configuration
+// Must be before cookie-parser and session so credentials work correctly
 const allowedOrigins = [
   process.env.FRONTEND_URL,
-  "https://your-app.vercel.app" // Placeholder from docs, can be customized
+  process.env.CLIENT_URL,
+  "http://localhost:5173",
+  "https://your-app.vercel.app"
 ].filter(Boolean);
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl)
+    // Allow requests with no origin (curl, mobile apps)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true
+  credentials: true // Required for cookies to be sent cross-origin
 };
 app.use(cors(corsOptions));
 
-// 4. Rate Limiting
+// 4. Cookie Parser — must be before session and routes
+app.use(cookieParser());
+
+// 5. Express Session — required by Passport for the OAuth state parameter
+// We use session: false in passport.authenticate, but express-session is still
+// needed internally by passport-google-oauth20 to manage the OAuth state.
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: isProd,
+      httpOnly: true,
+      maxAge: 10 * 60 * 1000 // 10 minutes — only needed for OAuth flow
+    }
+  })
+);
+
+// 6. Initialize Passport (must be after session)
+app.use(passportConfig.initialize());
+
+// 7. Rate Limiting
 const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per window
+  max: 100,
   message: "Too many requests, please try again later."
 });
 
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // Limit each IP to 10 auth requests per window
+  windowMs: 15 * 60 * 1000,
+  max: 20, // Slightly higher to accommodate Google OAuth redirects
   message: "Too many auth attempts."
 });
 
-// Apply rate limits
 app.use("/api/", generalLimiter);
 app.use("/api/auth/", authLimiter);
 
-// 5. Body Parsers (with size limits)
+// 8. Body Parsers
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
-// 6. NoSQL Injection Protection
-// app.use(mongoSanitize());
-
-// app.use(
-//   mongoSanitize({
-//     replaceWith: "_"
-//   })
-// );
-
-// 7. Health Check Endpoint
+// 9. Health Check Endpoints
 let dbConnected = false;
 
 app.get("/api/health", (req, res) => {
@@ -118,11 +145,11 @@ app.get("/health", (req, res) => {
   res.status(getHealthStatusCode(dbConnected)).json(createHealthPayload(dbConnected));
 });
 
-// 8. Register Routes
+// 10. Register Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/leads", leadRoutes);
 
-// 9. Serve the frontend build in production
+// 11. Serve frontend build in production
 if (process.env.NODE_ENV === "production") {
   const distPath = path.join(__dirname, "..", "dist");
   app.use(express.static(distPath));
@@ -132,7 +159,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-// 10. Global Error Handling Middleware (Registered LAST)
+// 12. Global Error Handling Middleware (MUST be last)
 app.use(errorHandler);
 
 // Connect to MongoDB and start the server
@@ -146,15 +173,16 @@ const startServer = async () => {
 
   const server = app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || "development"} mode`);
+    console.log(`Google OAuth: ${process.env.GOOGLE_CLIENT_ID ? "✓ Configured" : "✗ Not configured (set GOOGLE_CLIENT_ID)"}`);
   });
 
-  // 10. Graceful Shutdown Handlers
+  // Graceful Shutdown Handlers
   const shutdown = (signal) => {
     console.log(`\nReceived ${signal}. Shutting down gracefully...`);
-    
+
     server.close(async () => {
       console.log("Http server closed.");
-      
+
       try {
         await mongoose.connection.close();
         console.log("MongoDB connection closed cleanly.");

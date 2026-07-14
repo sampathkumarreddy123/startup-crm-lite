@@ -3,12 +3,16 @@ import User from "../models/User.js";
 import { errorResponse } from "../utils/apiResponse.js";
 
 /**
- * Protect routes by verifying JWT tokens and attaching user context.
+ * Protect routes by verifying JWT tokens from:
+ *  1. Authorization header (Bearer token) — used by email/password login flow
+ *  2. HTTP-only cookie (crm_token) — used by Google OAuth login flow
+ *
+ * Attaches the resolved user to req.user and calls next().
  */
 export const protect = async (req, res, next) => {
   let token;
 
-  // Extract JWT from Authorization header
+  // 1. Check Authorization header (Bearer token — existing email/password flow)
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -16,7 +20,12 @@ export const protect = async (req, res, next) => {
     token = req.headers.authorization.split(" ")[1];
   }
 
-  // If no token is provided
+  // 2. Fallback: check HTTP-only cookie (Google OAuth flow)
+  if (!token && req.cookies?.crm_token) {
+    token = req.cookies.crm_token;
+  }
+
+  // If no token found in either location
   if (!token) {
     return errorResponse(res, "No token provided, access denied", 401);
   }
@@ -28,12 +37,17 @@ export const protect = async (req, res, next) => {
     // Find the user associated with this token
     const user = await User.findById(decoded.id).select("-password");
 
-    // If the user doesn't exist anymore
+    // If the user no longer exists
     if (!user) {
       return errorResponse(res, "User belonging to this token no longer exists", 401);
     }
 
-    // Attach user to req.user and proceed
+    // Check if account is active
+    if (!user.isActive) {
+      return errorResponse(res, "Account is deactivated", 403);
+    }
+
+    // Attach user to req and proceed
     req.user = user;
     next();
   } catch (error) {

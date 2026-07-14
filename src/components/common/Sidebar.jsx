@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Users,
@@ -13,6 +13,12 @@ import { useAuth } from "../../context/AuthContext";
 
 function Sidebar() {
   const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
 
   const links = [
     {
@@ -94,7 +100,7 @@ function Sidebar() {
         <div className="mt-auto flex flex-col gap-2">
           <DarkModeToggle />
           <button
-            onClick={logout}
+            onClick={handleLogout}
             className="
               flex items-center
               justify-center lg:justify-start
@@ -148,7 +154,7 @@ function Sidebar() {
           </NavLink>
         ))}
         <button
-          onClick={logout}
+          onClick={handleLogout}
           className="p-3 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20"
           title="Logout"
         >
