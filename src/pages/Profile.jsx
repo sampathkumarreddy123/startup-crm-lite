@@ -119,7 +119,7 @@ const Profile = memo(function Profile() {
     link.download = "activity-report.txt";
     link.click();
     URL.revokeObjectURL(url);
-  }, [profile]);
+  }, [profile, recentActivities]);
 
   const handleLogout = useCallback(() => {
     logout();
@@ -136,23 +136,30 @@ const Profile = memo(function Profile() {
 
   return (
     <div className="space-y-6">
-      <ProfileHeader profile={profile} onEdit={() => setIsEditing(true)} />
+      <ProfileHeader
+        profile={profile}
+        isEditing={isEditing}
+        onEdit={() => setIsEditing(true)}
+      />
 
       <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
         <div className="space-y-6">
-          <PersonalInfoCard profile={profile} isEditing={isEditing} onFieldChange={handleFieldChange} />
+          <PersonalInfoCard
+            profile={profile}
+            isEditing={isEditing}
+            onFieldChange={handleFieldChange}
+            onSave={handleSave}
+            onCancel={() => setIsEditing(false)}
+          />
           <RecentActivity activities={recentActivities} />
         </div>
 
         <div className="space-y-6">
           <AccountStats stats={crmStats} />
           <ProfileActions
-            isEditing={isEditing}
-            onEditToggle={() => setIsEditing((value) => !value)}
             onExport={handleExport}
             onDownloadReport={handleDownloadReport}
             onLogout={handleLogout}
-            onSave={handleSave}
           />
         </div>
       </div>

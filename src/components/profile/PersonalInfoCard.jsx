@@ -1,13 +1,13 @@
 import { memo, useMemo } from "react";
-import { Mail, UserCircle2 } from "lucide-react";
+import { Mail, UserCircle2, Save } from "lucide-react";
 
 /**
  * Displays the actual user profile fields stored from account creation.
  *
- * @param {{ profile: object, isEditing: boolean, onFieldChange: (field: string, value: string) => void }} props - Card props.
+ * @param {{ profile: object, isEditing: boolean, onFieldChange: (field: string, value: string) => void, onSave: () => void, onCancel: () => void }} props - Card props.
  * @returns {JSX.Element} Personal information card.
  */
-const PersonalInfoCard = memo(function PersonalInfoCard({ profile, isEditing, onFieldChange }) {
+const PersonalInfoCard = memo(function PersonalInfoCard({ profile, isEditing, onFieldChange, onSave, onCancel }) {
   const fields = useMemo(() => {
     const entries = [];
 
@@ -55,11 +55,33 @@ const PersonalInfoCard = memo(function PersonalInfoCard({ profile, isEditing, on
         ))}
       </div>
 
-      <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
-        <span className="inline-flex items-center gap-2">
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 pt-6 dark:border-gray-700">
+        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
           <Mail size={16} />
           {profile?.email || "No email available"}
-        </span>
+        </div>
+
+        {isEditing && (
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={onSave}
+              className="inline-flex min-h-[40px] items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-blue-700 shadow-sm"
+              aria-label="Save changes to profile"
+            >
+              <Save size={16} />
+              Save Changes
+            </button>
+            <button
+              type="button"
+              onClick={onCancel}
+              className="inline-flex min-h-[40px] items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800"
+              aria-label="Cancel editing details"
+            >
+              Cancel
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

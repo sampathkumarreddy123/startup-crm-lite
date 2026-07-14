@@ -5,10 +5,10 @@ import ProfileAvatar from "./ProfileAvatar";
 /**
  * Hero header for the user profile page.
  *
- * @param {{ profile: object, onEdit: () => void }} props - Profile header props.
+ * @param {{ profile: object, isEditing: boolean, onEdit: () => void }} props - Profile header props.
  * @returns {JSX.Element} Profile header card.
  */
-const ProfileHeader = memo(function ProfileHeader({ profile, onEdit }) {
+const ProfileHeader = memo(function ProfileHeader({ profile, isEditing, onEdit }) {
   const createdAt = profile?.createdAt ? new Date(profile.createdAt).toLocaleDateString() : "Recently joined";
   const status = profile?.isActive ? "Active" : "Inactive";
 
@@ -41,15 +41,17 @@ const ProfileHeader = memo(function ProfileHeader({ profile, onEdit }) {
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={onEdit}
-            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/15 px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-white/25"
-            aria-label="Edit profile"
-          >
-            <PencilLine size={16} />
-            Edit Profile
-          </button>
+          {isEditing ? null : (
+            <button
+              type="button"
+              onClick={onEdit}
+              className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/15 px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-white/25"
+              aria-label="Edit profile"
+            >
+              <PencilLine size={16} />
+              Edit Profile
+            </button>
+          )}
         </div>
       </div>
     </section>
