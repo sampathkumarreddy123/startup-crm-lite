@@ -30,6 +30,20 @@ textarea {
   font: inherit;
 }
 
+button,
+a,
+[role="button"],
+label[for],
+select {
+  cursor: pointer !important;
+}
+
+button:disabled,
+button[disabled] {
+  cursor: not-allowed !important;
+}
+
 button {
   min-height: 44px;
 }
+
