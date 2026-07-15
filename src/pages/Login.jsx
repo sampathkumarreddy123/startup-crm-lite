@@ -124,18 +124,6 @@ export default function Login() {
             </div>
 
             <div className="mt-8 space-y-5">
-              {/* ── Google OAuth button ────────────────────────────────── */}
-              <GoogleLoginButton />
-
-              {/* ── Divider ───────────────────────────────────────────── */}
-              <div className="relative flex items-center gap-3">
-                <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
-                <span className="text-xs font-medium text-slate-400 dark:text-slate-500">
-                  or sign in with email
-                </span>
-                <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
-              </div>
-
               {/* ── Email / Password form ──────────────────────────────── */}
               <form className="space-y-4" onSubmit={handleSubmit}>
                 <div className="space-y-4">
@@ -201,7 +189,20 @@ export default function Login() {
                   )}
                 </button>
               </form>
+
+              {/* ── Divider ───────────────────────────────────────────── */}
+              <div className="relative flex items-center gap-3">
+                <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
+                <span className="text-xs font-medium text-slate-400 dark:text-slate-500">
+                  or continue with
+                </span>
+                <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
+              </div>
+
+              {/* ── Google OAuth button ────────────────────────────────── */}
+              <GoogleLoginButton />
             </div>
+
 
             <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-300">
               New here?{" "}

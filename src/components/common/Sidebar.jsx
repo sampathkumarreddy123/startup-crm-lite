@@ -3,7 +3,6 @@ import {
   LayoutDashboard,
   Users,
   BarChart3,
-  UserCircle2,
   LogOut
 } from "lucide-react";
 
@@ -35,11 +34,6 @@ function Sidebar() {
       name: "Analytics",
       path: "/analytics",
       icon: <BarChart3 size={20} />
-    },
-    {
-      name: "Profile",
-      path: "/profile",
-      icon: <UserCircle2 size={20} />
     }
   ];
 
