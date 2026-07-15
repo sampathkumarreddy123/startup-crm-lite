@@ -45,18 +45,21 @@ function Sidebar() {
 
   return (
     <>
-      {/* Sidebar */}
+      {/* ── Desktop Sidebar ────────────────────────────────────────────── */}
       <aside
         className="
           hidden md:flex
           flex-col
           md:w-20
           lg:w-64
-          min-h-screen
+          sticky top-0
+          h-screen
+          overflow-y-auto
           bg-white dark:bg-gray-800
           border-r border-gray-200 dark:border-gray-700
           p-4
           transition-colors duration-200
+          shrink-0
         "
       >
         {/* Logo */}

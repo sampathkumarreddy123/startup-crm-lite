@@ -22,10 +22,10 @@ function AppContent() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="flex h-screen overflow-hidden bg-gray-50 dark:bg-gray-900">
       <Sidebar />
 
-      <main className="flex-1 overflow-x-hidden p-3 pb-24 sm:p-4 md:p-6 md:pb-6">
+      <main className="flex-1 overflow-y-auto overflow-x-hidden p-3 pb-24 sm:p-4 md:p-6 md:pb-6">
         <div className="mx-auto w-full max-w-7xl">
           {/* ── App Header ─────────────────────────────────────────────── */}
           <header className="mb-6 flex items-center justify-between rounded-2xl border border-gray-200 bg-white/90 px-4 py-3 shadow-sm backdrop-blur dark:border-gray-700 dark:bg-gray-800/90">
