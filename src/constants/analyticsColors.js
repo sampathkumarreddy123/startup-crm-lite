@@ -1,8 +1,8 @@
 export const STATUS_COLORS = {
-  New: "#94A3B8",
-  Contacted: "#2563EB",
-  "Meeting Scheduled": "#F59E0B",
-  "Proposal Sent": "#7C3AED",
-  Won: "#22C55E",
-  Lost: "#EF4444"
+  New: "var(--brand-secondary)",
+  Contacted: "var(--brand-accent)",
+  "Meeting Scheduled": "var(--brand-warning)",
+  "Proposal Sent": "var(--brand-purple)",
+  Won: "var(--brand-success)",
+  Lost: "var(--brand-danger)"
 };
