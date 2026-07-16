@@ -38,8 +38,8 @@ export default function Register() {
     setIsSubmitting(false);
 
     if (res.success) {
-      toast.success("Account created successfully!");
-      navigate("/");
+      toast.success("Account created! Please sign in.");
+      navigate("/login");
     } else {
       const detailMessage = Array.isArray(res.errors) && res.errors.length > 0
         ? res.errors[0].message

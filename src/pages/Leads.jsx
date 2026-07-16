@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import LeadForm from "../components/leads/LeadForm";
 import LeadCard from "../components/leads/LeadCard";
 import LeadTable from "../components/leads/LeadTable";
+import LeadDetailModal from "../components/leads/LeadDetailModal";
 
 import SearchBar from "../components/common/SearchBar";
 import FilterBar from "../components/common/FilterBar";
@@ -19,6 +20,7 @@ function Leads() {
   const { leads, addLead, updateLead, deleteLead } = useLeads();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedLead, setSelectedLead] = useState(null);
+  const [viewLead, setViewLead] = useState(null);
 
   const location = useLocation();
 
@@ -37,6 +39,17 @@ function Leads() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
+  const [sortField, setSortField] = useState(null);
+  const [sortDir, setSortDir] = useState("asc");
+
+  const handleSort = (field) => {
+    if (sortField === field) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortField(field);
+      setSortDir("asc");
+    }
+  };
 
   const filteredLeads = leads
     .filter(
@@ -50,7 +63,22 @@ function Leads() {
           .toLowerCase()
           .includes(searchQuery.toLowerCase()) ||
         lead.email.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    )
+    .sort((a, b) => {
+      if (!sortField) return 0;
+      let aVal = a[sortField] ?? "";
+      let bVal = b[sortField] ?? "";
+      if (sortField === "createdAt") {
+        aVal = new Date(aVal);
+        bVal = new Date(bVal);
+      } else {
+        aVal = String(aVal).toLowerCase();
+        bVal = String(bVal).toLowerCase();
+      }
+      if (aVal < bVal) return sortDir === "asc" ? -1 : 1;
+      if (aVal > bVal) return sortDir === "asc" ? 1 : -1;
+      return 0;
+    });
 
   const saveLead = function (lead) {
   if (selectedLead) {
@@ -73,6 +101,10 @@ const removeLead = function (leadId) {
   const editLead = function (lead) {
     setSelectedLead(lead);
     setIsModalOpen(true);
+  };
+
+  const handleView = (lead) => {
+    setViewLead(lead);
   };
 
   return (
@@ -113,6 +145,7 @@ const removeLead = function (leadId) {
                 lead={lead}
                 onEdit={editLead}
                 onDelete={removeLead}
+                onView={handleView}
               />
             ))}
           </div>
@@ -123,6 +156,10 @@ const removeLead = function (leadId) {
               leads={filteredLeads}
               onEdit={editLead}
               onDelete={removeLead}
+              onView={handleView}
+              sortField={sortField}
+              sortDir={sortDir}
+              onSort={handleSort}
             />
           </div>
         </>
@@ -141,6 +178,13 @@ const removeLead = function (leadId) {
             />
           </div>
         </div>
+      )}
+      {/* Lead Detail Modal */}
+      {viewLead && (
+        <LeadDetailModal
+          lead={viewLead}
+          onClose={() => setViewLead(null)}
+        />
       )}
     </div>
   );

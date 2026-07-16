@@ -1,11 +1,11 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, Eye } from "lucide-react";
 import StatusBadge from "./StatusBadge";
 
 /**
  * Lead Card Component
  */
 
-function LeadCard({ lead, onEdit, onDelete }) {
+function LeadCard({ lead, onEdit, onDelete, onView }) {
   return (
     <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm p-6 transition-colors duration-200">
       <h3 className="font-semibold text-lg">{lead.name}</h3>
@@ -18,13 +18,32 @@ function LeadCard({ lead, onEdit, onDelete }) {
       <p className="mt-3">{lead.email}</p>
       <p>{lead.phone}</p>
 
-      <div className="flex gap-3 mt-4">
-        <button onClick={() => onEdit(lead)}>
-          <Pencil size={18} />
+      <div className="flex gap-2 mt-4">
+        <button
+          onClick={() => onView(lead)}
+          className="inline-flex items-center justify-center rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
+          aria-label="View lead details"
+          title="View details"
+        >
+          <Eye size={16} />
         </button>
 
-        <button onClick={() => onDelete(lead._id || lead.id)}>
-          <Trash2 size={18} className="text-red-500" />
+        <button
+          onClick={() => onEdit(lead)}
+          className="inline-flex items-center justify-center rounded-lg p-1.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-colors duration-150"
+          aria-label="Edit lead"
+          title="Edit"
+        >
+          <Pencil size={16} />
+        </button>
+
+        <button
+          onClick={() => onDelete(lead._id || lead.id)}
+          className="inline-flex items-center justify-center rounded-lg p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors duration-150"
+          aria-label="Delete lead"
+          title="Delete"
+        >
+          <Trash2 size={16} />
         </button>
       </div>
     </div>
