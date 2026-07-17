@@ -43,10 +43,24 @@ const setTokenCookie = (res, token) => {
  * @access  Public (Google redirects here)
  */
 export const googleCallback = (req, res) => {
+  const getClientUrl = () => {
+    if (isProd) {
+      return CLIENT_URL;
+    }
+    const host = req.get("host");
+    if (host) {
+      const hostname = host.split(":")[0];
+      return `http://${hostname}:5173`;
+    }
+    return CLIENT_URL;
+  };
+
+  const frontendUrl = getClientUrl();
+
   try {
     // req.user is populated by passport.authenticate("google", { session: false })
     if (!req.user) {
-      return res.redirect(`${CLIENT_URL}/login?error=google_auth_failed`);
+      return res.redirect(`${frontendUrl}/login?error=google_auth_failed`);
     }
 
     const token = generateToken(req.user._id);
@@ -55,10 +69,10 @@ export const googleCallback = (req, res) => {
     setTokenCookie(res, token);
 
     // Redirect to the frontend auth callback page which will fetch /me and set context
-    return res.redirect(`${CLIENT_URL}/auth/callback?status=success`);
+    return res.redirect(`${frontendUrl}/auth/callback?status=success`);
   } catch (error) {
     console.error("[googleCallback] Error:", error);
-    return res.redirect(`${CLIENT_URL}/login?error=server_error`);
+    return res.redirect(`${frontendUrl}/login?error=server_error`);
   }
 };
 

@@ -39,10 +39,23 @@ router.get(
  */
 router.get(
   "/google/callback",
-  passport.authenticate("google", {
-    session: false,
-    failureRedirect: `${process.env.FRONTEND_URL}/login?error=google_auth_failed`
-  }),
+  (req, res, next) => {
+    const frontendUrl = process.env.NODE_ENV === "production"
+      ? (process.env.FRONTEND_URL || "https://startup-crm-lite-production-071e.up.railway.app")
+      : (() => {
+          const host = req.get("host");
+          if (host) {
+            const hostname = host.split(":")[0];
+            return `http://${hostname}:5173`;
+          }
+          return "http://localhost:5173";
+        })();
+
+    passport.authenticate("google", {
+      session: false,
+      failureRedirect: `${frontendUrl}/login?error=google_auth_failed`
+    })(req, res, next);
+  },
   googleCallback
 );
 

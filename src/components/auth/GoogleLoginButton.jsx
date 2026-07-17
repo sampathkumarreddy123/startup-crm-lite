@@ -11,7 +11,9 @@
 export default function GoogleLoginButton({ className = "" }) {
   const API_URL = import.meta.env.VITE_API_URL ||
     (import.meta.env.DEV
-      ? "http://localhost:5000"
+      ? (typeof window !== "undefined" && window.location.hostname
+          ? `${window.location.protocol}//${window.location.hostname}:5000`
+          : "http://localhost:5000")
       : "https://startup-crm-lite-production-071e.up.railway.app");
 
   /**

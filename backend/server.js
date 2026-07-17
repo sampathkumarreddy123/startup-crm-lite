@@ -82,11 +82,20 @@ const allowedOrigins = [
 const corsOptions = {
   origin: (origin, callback) => {
     // Allow requests with no origin (curl, mobile apps)
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
+    if (!origin) {
+      return callback(null, true);
     }
+
+    // In development, allow any origin (e.g. mobile devices on local network)
+    if (!isProd) {
+      return callback(null, true);
+    }
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    callback(new Error("Not allowed by CORS"));
   },
   credentials: true // Required for cookies to be sent cross-origin
 };

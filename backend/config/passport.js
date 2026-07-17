@@ -21,7 +21,7 @@ passport.use(
       callbackURL:
   process.env.NODE_ENV === "production"
     ? "https://startup-crm-lite-production-071e.up.railway.app/api/auth/google/callback"
-    : "http://localhost:5000/api/auth/google/callback",
+    : "/api/auth/google/callback",
       scope: ["profile", "email"]
     },
     async (accessToken, refreshToken, profile, done) => {
