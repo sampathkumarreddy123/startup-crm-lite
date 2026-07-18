@@ -41,7 +41,7 @@ router.get(
   "/google/callback",
   (req, res, next) => {
     const frontendUrl = process.env.NODE_ENV === "production"
-      ? (process.env.FRONTEND_URL || "https://startup-crm-lite-production-071e.up.railway.app")
+      ? (process.env.FRONTEND_URL || process.env.CLIENT_URL || "https://startup-crm-lite-production-071e.up.railway.app")
       : (() => {
           const host = req.get("host");
           if (host) {

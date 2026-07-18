@@ -14,7 +14,9 @@ export default function GoogleLoginButton({ className = "" }) {
       ? (typeof window !== "undefined" && window.location.hostname
           ? `${window.location.protocol}//${window.location.hostname}:5000`
           : "http://localhost:5000")
-      : "https://startup-crm-lite-production-071e.up.railway.app");
+      : (typeof window !== "undefined" && window.location.origin
+          ? window.location.origin
+          : "https://startup-crm-lite-production-071e.up.railway.app"));
 
   /**
    * Redirect to the backend Google OAuth initiator endpoint.

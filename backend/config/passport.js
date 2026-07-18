@@ -19,9 +19,12 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
-  process.env.NODE_ENV === "production"
-    ? "https://startup-crm-lite-production-071e.up.railway.app/api/auth/google/callback"
-    : "/api/auth/google/callback",
+        process.env.CALLBACK_URL ||
+        (process.env.NODE_ENV === "production"
+          ? (process.env.BACKEND_URL
+              ? `${process.env.BACKEND_URL}/api/auth/google/callback`
+              : "https://startup-crm-lite-production-071e.up.railway.app/api/auth/google/callback")
+          : "/api/auth/google/callback"),
       scope: ["profile", "email"]
     },
     async (accessToken, refreshToken, profile, done) => {

@@ -6,7 +6,9 @@ const apiBaseUrl = import.meta.env.VITE_API_URL || (import.meta.env.DEV
   ? (typeof window !== "undefined" && window.location.hostname
       ? `${window.location.protocol}//${window.location.hostname}:5000`
       : "http://localhost:5000")
-  : "https://startup-crm-lite-production-071e.up.railway.app");
+  : (typeof window !== "undefined" && window.location.origin
+      ? window.location.origin
+      : "https://startup-crm-lite-production-071e.up.railway.app"));
 
 const api = axios.create({
   baseURL: apiBaseUrl,
