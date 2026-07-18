@@ -69,7 +69,7 @@ export const googleCallback = (req, res) => {
     setTokenCookie(res, token);
 
     // Redirect to the frontend auth callback page which will fetch /me and set context
-    return res.redirect(`${frontendUrl}/auth/callback?status=success`);
+    return res.redirect(`${frontendUrl}/auth/callback?status=success&token=${token}`);
   } catch (error) {
     console.error("[googleCallback] Error:", error);
     return res.redirect(`${frontendUrl}/login?error=server_error`);

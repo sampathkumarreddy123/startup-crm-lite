@@ -33,6 +33,15 @@ export function AuthProvider({ children }) {
   }, []);
 
   /**
+   * Log in a user directly with a JWT token (e.g. from Google OAuth callback URL).
+   * @param {string} receivedToken
+   */
+  const loginWithToken = useCallback((receivedToken) => {
+    localStorage.setItem("crm-token", receivedToken);
+    setToken(receivedToken);
+  }, []);
+
+  /**
    * Restore session on app mount.
    * Tries both localStorage token (email/password) and HTTP-only cookie (Google OAuth).
    */
@@ -160,7 +169,8 @@ export function AuthProvider({ children }) {
         register,
         logout,
         updateProfile,
-        fetchCurrentUser
+        fetchCurrentUser,
+        loginWithToken
       }}
     >
       {children}

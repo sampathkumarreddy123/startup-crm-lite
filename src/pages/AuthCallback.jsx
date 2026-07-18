@@ -18,7 +18,7 @@ export default function AuthCallback() {
   const [searchParams] = useSearchParams();
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { fetchCurrentUser } = useAuth();
+  const { fetchCurrentUser, loginWithToken } = useAuth();
 
   useEffect(() => {
     const handleCallback = async () => {
@@ -39,7 +39,13 @@ export default function AuthCallback() {
       }
 
       try {
-        // Fetch the user from the backend using the HTTP-only cookie set by Google callback
+        // If the token is passed in the URL parameters, store it locally (bypasses cross-domain cookie blocks)
+        const tokenParam = searchParams.get("token");
+        if (tokenParam) {
+          loginWithToken(tokenParam);
+        }
+
+        // Fetch the user from the backend using either the HTTP-only cookie or the localStorage token
         const userData = await fetchCurrentUser();
 
         if (userData) {
@@ -56,7 +62,7 @@ export default function AuthCallback() {
     };
 
     handleCallback();
-  }, [searchParams, fetchCurrentUser, navigate]);
+  }, [searchParams, fetchCurrentUser, navigate, loginWithToken]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-slate-100 via-white to-blue-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800">
