@@ -9,6 +9,7 @@ const COLUMNS = [
   { label: "Name",    field: "name" },
   { label: "Company", field: "company" },
   { label: "Status",  field: "status" },
+  { label: "Value",   field: "value" },
   { label: "Email",   field: "email" },
   { label: "Source",  field: "source" },
   { label: "Date",    field: "createdAt" },
@@ -59,6 +60,9 @@ function LeadTable({ leads, onEdit, onDelete, onView, sortField, sortDir, onSort
               </td>
               <td className="px-4 py-3">
                 <StatusBadge status={lead.status} />
+              </td>
+              <td className="px-4 py-3 text-gray-600 dark:text-gray-300 whitespace-nowrap">
+                {lead.value !== undefined && lead.value !== null ? `$${Number(lead.value).toLocaleString()}` : "—"}
               </td>
               <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
                 {lead.email}

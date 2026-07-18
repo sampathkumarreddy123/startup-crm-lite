@@ -75,7 +75,7 @@ export const getLeads = async (req, res, next) => {
  */
 export const createLead = async (req, res, next) => {
   try {
-    const { name, company, email, phone, status, source, notes } = req.body;
+    const { name, company, email, phone, status, source, notes, value } = req.body;
 
     const lead = await Lead.create({
       name,
@@ -85,6 +85,7 @@ export const createLead = async (req, res, next) => {
       status,
       source,
       notes,
+      value: value === undefined ? 0 : value,
       owner: req.user._id
     });
 

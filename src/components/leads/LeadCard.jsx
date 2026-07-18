@@ -11,8 +11,13 @@ function LeadCard({ lead, onEdit, onDelete, onView }) {
       <h3 className="font-semibold text-lg">{lead.name}</h3>
       <p className="text-slate-500 dark:text-gray-400">{lead.company}</p>
 
-      <div className="mt-3">
+      <div className="mt-3 flex items-center justify-between">
         <StatusBadge status={lead.status} />
+        {lead.value !== undefined && lead.value !== null && (
+          <span className="text-sm font-semibold text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 px-2.5 py-1 rounded-lg">
+            ${Number(lead.value).toLocaleString()}
+          </span>
+        )}
       </div>
 
       <p className="mt-3">{lead.email}</p>

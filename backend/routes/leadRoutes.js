@@ -52,7 +52,11 @@ const leadValidations = [
     .optional()
     .trim()
     .isLength({ max: 1000 })
-    .withMessage("Notes cannot exceed 1000 characters")
+    .withMessage("Notes cannot exceed 1000 characters"),
+  body("value")
+    .optional({ checkFalsy: true })
+    .isFloat({ min: 0 })
+    .withMessage("Value must be a non-negative number")
 ];
 
 const leadStatusValidations = [

@@ -61,6 +61,12 @@ export const LeadSchema = new mongoose.Schema(
       maxlength: [1000, "Notes cannot exceed 1000 characters"],
       default: ""
     },
+    /** @type {Number} The monetary value or deal size of the lead */
+    value: {
+      type: Number,
+      min: [0, "Value cannot be negative"],
+      default: 0
+    },
     /** @type {mongoose.Schema.Types.ObjectId} Reference to the User who owns this lead record */
     owner: {
       type: mongoose.Schema.Types.ObjectId,

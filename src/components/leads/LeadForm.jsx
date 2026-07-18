@@ -6,14 +6,17 @@ import { useState } from "react";
 
 function LeadForm({ initialData, onSubmit, onCancel }) {
   const [formData, setFormData] = useState(
-    initialData || {
-      name: "",
-      company: "",
-      email: "",
-      phone: "",
-      status: "New",
-      source: "Website"
-    }
+    initialData
+      ? { ...initialData, value: initialData.value ?? "" }
+      : {
+          name: "",
+          company: "",
+          email: "",
+          phone: "",
+          value: "",
+          status: "New",
+          source: "Website"
+        }
   );
 
   const [errors, setErrors] = useState({});
@@ -33,25 +36,37 @@ function LeadForm({ initialData, onSubmit, onCancel }) {
     if (!formData.name) newErrors.name = "Name is required";
     if (!formData.company) newErrors.company = "Company is required";
     if (!formData.email) newErrors.email = "Email is required";
+    if (formData.value !== undefined && formData.value !== "" && isNaN(formData.value)) {
+      newErrors.value = "Value must be a number";
+    } else if (formData.value !== undefined && formData.value !== "" && Number(formData.value) < 0) {
+      newErrors.value = "Value cannot be negative";
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    onSubmit(formData);
+    onSubmit({
+      ...formData,
+      value: formData.value === "" ? 0 : Number(formData.value)
+    });
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {["name", "company", "email", "phone"].map((field) => (
+      {["name", "company", "email", "phone", "value"].map((field) => (
         <div key={field}>
-          <label className="block mb-1 capitalize">{field}</label>
+          <label className="block mb-1 capitalize">
+            {field === "value" ? "Value ($)" : field}
+          </label>
           <input
-            type="text"
+            type={field === "value" ? "number" : "text"}
             name={field}
-            value={formData[field]}
+            value={formData[field] ?? ""}
             onChange={handleChange}
+            min={field === "value" ? "0" : undefined}
+            step={field === "value" ? "any" : undefined}
             className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
           />
           {errors[field] && (
