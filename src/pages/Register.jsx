@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { toast, Toaster } from "react-hot-toast";
-import { Sun, Moon } from "lucide-react";
-import { useTheme } from "../context/ThemeContext";
+import DarkModeToggle from "../components/common/DarkModeToggle";
 
 /**
  * Beautiful, responsive Registration Page with dark mode compatibility and micro-animations.
@@ -16,7 +15,6 @@ export default function Register() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { register } = useAuth();
-  const { isDarkMode, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -52,27 +50,20 @@ export default function Register() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-100 via-white to-blue-50 px-3 py-4 text-slate-900 transition-colors duration-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100 sm:px-6 sm:py-8 lg:px-8">
-      <div className="absolute top-4 right-4 z-50">
-        <button
-          onClick={toggleTheme}
-          className="flex h-10 items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-200 dark:hover:bg-slate-700"
-          title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-          aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-        >
-          {isDarkMode ? (
-            <>
-              <Sun size={15} className="text-amber-500" />
-              <span>Light Mode</span>
-            </>
-          ) : (
-            <>
-              <Moon size={15} className="text-indigo-500" />
-              <span>Dark Mode</span>
-            </>
-          )}
-        </button>
-      </div>
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-100 via-white to-blue-50 px-3 pt-20 pb-4 text-slate-900 transition-colors duration-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100 sm:px-6 sm:pt-24 sm:pb-8 lg:px-8">
+      <header className="absolute top-0 left-0 right-0 z-50 flex h-16 items-center justify-between px-4 sm:px-8 lg:px-12">
+        <div className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm dark:bg-blue-500">
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+          <span className="text-sm font-bold tracking-tight text-slate-800 dark:text-slate-200">
+            Startup CRM Lite
+          </span>
+        </div>
+        <DarkModeToggle variant="auth" />
+      </header>
       <Toaster />
       <div className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-6xl items-center justify-center">
         <div className="grid w-full overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl dark:border-slate-700 dark:bg-slate-800 md:grid-cols-2">
