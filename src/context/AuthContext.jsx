@@ -47,6 +47,10 @@ export function AuthProvider({ children }) {
    */
   useEffect(() => {
     const restoreSession = async () => {
+      if (window.location.pathname === "/auth/callback") {
+        setIsLoading(false);
+        return;
+      }
       setIsLoading(true);
       try {
         // This single call handles both flows:
