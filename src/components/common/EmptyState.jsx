@@ -4,7 +4,7 @@
 
 function EmptyState({ totalLeads }) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-10 text-center">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm p-10 text-center">
       <h2 className="text-xl font-semibold mb-2">
         No leads found
       </h2>

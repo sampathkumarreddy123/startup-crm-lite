@@ -42,7 +42,7 @@ function QuickActions() {
   };
 
   return (
-    <div className="rounded-2xl bg-white p-6 shadow-sm dark:bg-gray-800">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm p-6">
       <h2 className="mb-4 text-lg font-semibold">Quick Actions</h2>
 
       <div className="flex flex-col gap-3">

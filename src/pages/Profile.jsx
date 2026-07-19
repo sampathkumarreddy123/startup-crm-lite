@@ -51,12 +51,12 @@ const Profile = memo(function Profile() {
   const crmStats = useMemo(() => {
     const safeLeads = Array.isArray(leads) ? leads : [];
     const totalLeads = safeLeads.length;
-    const newLeads = safeLeads.filter((lead) => lead.status === "New").length;
-    const contactedLeads = safeLeads.filter((lead) => lead.status === "Contacted").length;
-    const meetingsScheduled = safeLeads.filter((lead) => lead.status === "Meeting Scheduled").length;
-    const proposalSent = safeLeads.filter((lead) => lead.status === "Proposal Sent").length;
-    const wonLeads = safeLeads.filter((lead) => lead.status === "Won").length;
-    const lostLeads = safeLeads.filter((lead) => lead.status === "Lost").length;
+    const newLeads = safeLeads.filter((lead) => lead.status && lead.status.toLowerCase() === "new").length;
+    const contactedLeads = safeLeads.filter((lead) => lead.status && lead.status.toLowerCase() === "contacted").length;
+    const meetingsScheduled = safeLeads.filter((lead) => lead.status && lead.status.toLowerCase() === "meeting scheduled").length;
+    const proposalSent = safeLeads.filter((lead) => lead.status && lead.status.toLowerCase() === "proposal sent").length;
+    const wonLeads = safeLeads.filter((lead) => lead.status && lead.status.toLowerCase() === "won").length;
+    const lostLeads = safeLeads.filter((lead) => lead.status && lead.status.toLowerCase() === "lost").length;
     const conversionRate = totalLeads > 0 ? Math.round((wonLeads / totalLeads) * 100) : 0;
     const totalRevenue = safeLeads.reduce((sum, lead) => sum + Number(lead.value || 0), 0);
 

@@ -13,13 +13,13 @@ export function getStatusDistribution(leads = []) {
 
 export function getPipelineValue(leads = []) {
   return leads
-    .filter((lead) => lead.status !== "Won" && lead.status !== "Lost")
+    .filter((lead) => lead.status && lead.status.toLowerCase() !== "won" && lead.status.toLowerCase() !== "lost")
     .reduce((sum, lead) => sum + (lead.value || 0), 0);
 }
 
 export function getWonRevenue(leads = []) {
   return leads
-    .filter((lead) => lead.status === "Won")
+    .filter((lead) => lead.status && lead.status.toLowerCase() === "won")
     .reduce((sum, lead) => sum + (lead.value || 0), 0);
 }
 
@@ -27,7 +27,7 @@ export function getLostRate(leads = []) {
   if (!leads.length) return 0;
 
   const lost = leads.filter(
-    (lead) => lead.status === "Lost"
+    (lead) => lead.status && lead.status.toLowerCase() === "lost"
   ).length;
 
   return ((lost / leads.length) * 100).toFixed(1);
@@ -37,7 +37,7 @@ export function getConversionRate(leads = []) {
   if (!leads.length) return 0;
 
   const won = leads.filter(
-    (lead) => lead.status === "Won"
+    (lead) => lead.status && lead.status.toLowerCase() === "won"
   ).length;
 
   return ((won / leads.length) * 100).toFixed(1);
@@ -53,7 +53,7 @@ export function getFunnelData(leads = []) {
   ];
 
   return stages.map((stage) => ({
-    value: leads.filter((lead) => lead.status === stage).length,
+    value: leads.filter((lead) => lead.status && lead.status.toLowerCase() === stage.toLowerCase()).length,
     name: stage
   }));
 }

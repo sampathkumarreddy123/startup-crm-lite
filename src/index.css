@@ -5,27 +5,27 @@
 :root {
   color-scheme: light;
   
-  --brand-background: #F6F7F9;
-  --brand-surface: #EBEDF0;
+  --brand-background: #F3F4F6; /* Premium light gray background */
+  --brand-surface: #FFFFFF;    /* Pure white cards */
   --brand-primary: #374151;
   --brand-secondary: #6B7280;
   --brand-accent: #2563EB;
   --brand-accent-hover: #1D4ED8;
   --brand-text: #111827;
-  --brand-border: #D4D8DD;
+  --brand-border: #E2E8F0;    /* Cleaner slate-200 border */
 
   /* Custom structured color scale for light mode */
-  --brand-color-50: #F6F7F9;
-  --brand-color-100: #F6F7F9;
-  --brand-color-200: #D4D8DD;
-  --brand-color-300: #D4D8DD;
-  --brand-color-400: #6B7280;
-  --brand-color-500: #6B7280;
-  --brand-color-600: #6B7280;
-  --brand-color-700: #374151;
-  --brand-color-800: #374151;
-  --brand-color-900: #111827;
-  --brand-color-950: #111827;
+  --brand-color-50: #F3F4F6;
+  --brand-color-100: #F3F4F6;
+  --brand-color-200: #E2E8F0;
+  --brand-color-300: #CBD5E1;
+  --brand-color-400: #94A3B8;
+  --brand-color-500: #64748B;
+  --brand-color-600: #475569;
+  --brand-color-700: #334155;
+  --brand-color-800: #1E293B;
+  --brand-color-900: #0F172A;
+  --brand-color-950: #020617;
 
   --brand-success: #22C55E;
   --brand-success-bg: #E8F5E9;

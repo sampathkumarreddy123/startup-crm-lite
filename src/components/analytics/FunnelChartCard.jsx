@@ -7,7 +7,7 @@ import {
 
 function FunnelChartCard({ data }) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl border p-6 shadow-sm">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
       <h2 className="text-lg font-semibold mb-6">
         Sales Funnel
       </h2>

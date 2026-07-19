@@ -5,7 +5,7 @@
 
 function StatsCard({ title, value, icon, change, color }) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-sm p-3.5 sm:p-5 lg:p-6 flex flex-col justify-between gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+    <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm p-3.5 sm:p-5 lg:p-6 flex flex-col justify-between gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
       <div className="flex items-center justify-between gap-2">
         <h3 className="text-xs sm:text-sm font-medium text-slate-500 dark:text-gray-400 truncate" title={title}>
           {title}

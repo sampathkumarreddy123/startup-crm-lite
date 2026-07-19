@@ -54,7 +54,7 @@ function Leads() {
   const filteredLeads = leads
     .filter(
       (lead) =>
-        activeFilter === "All" || lead.status === activeFilter
+        activeFilter === "All" || (lead.status && lead.status.toLowerCase() === activeFilter.toLowerCase())
     )
     .filter(
       (lead) =>

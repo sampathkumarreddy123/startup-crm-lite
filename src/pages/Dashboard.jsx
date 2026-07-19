@@ -23,8 +23,8 @@ function Dashboard() {
   }, []);
 
   const totalLeads = stats ? stats.totalLeads : leads.length;
-  const wonLeads = stats ? stats.wonLeads : leads.filter((lead) => lead.status === "Won").length;
-  const lostLeads = stats ? stats.lostLeads : leads.filter((lead) => lead.status === "Lost").length;
+  const wonLeads = stats ? stats.wonLeads : leads.filter((lead) => lead.status && lead.status.toLowerCase() === "won").length;
+  const lostLeads = stats ? stats.lostLeads : leads.filter((lead) => lead.status && lead.status.toLowerCase() === "lost").length;
   const conversionRate = stats
     ? stats.conversionRate
     : totalLeads > 0

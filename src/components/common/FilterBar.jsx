@@ -16,7 +16,7 @@ function FilterBar({ activeFilter, onFilterChange, leads }) {
   const getCount = function (filter) {
     if (filter === "All") return leads.length;
 
-    return leads.filter((lead) => lead.status === filter).length;
+    return leads.filter((lead) => lead.status && lead.status.toLowerCase() === filter.toLowerCase()).length;
   };
 
   return (

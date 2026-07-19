@@ -15,13 +15,13 @@ function PipelineOverview({ leads }) {
   ];
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm p-6">
       <h2 className="text-lg font-semibold mb-4">Pipeline Overview</h2>
 
       <div className="flex h-5 rounded-full overflow-hidden">
         {statuses.map((status) => {
           const count = leads.filter(
-            (lead) => lead.status === status.name
+            (lead) => lead.status && lead.status.toLowerCase() === status.name.toLowerCase()
           ).length;
 
           const width = (count / total) * 100;
