@@ -45,7 +45,7 @@ export default function Login() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-100 via-white to-blue-50 px-3 pt-20 pb-4 text-slate-900 transition-colors duration-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100 sm:px-6 sm:pt-24 sm:pb-8 lg:px-8">
+    <div className="relative h-screen flex flex-col justify-center bg-gradient-to-br from-slate-100 via-white to-blue-50 px-3 py-4 text-slate-900 transition-colors duration-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100 sm:px-6 lg:px-8 overflow-hidden">
       <header className="absolute top-0 left-0 right-0 z-50 flex h-16 items-center justify-between px-4 sm:px-8 lg:px-12">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm dark:bg-blue-500">
@@ -63,7 +63,7 @@ export default function Login() {
 
       {/* OAuth error banner */}
       {oauthError && (
-        <div className="mx-auto mb-4 max-w-md rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600 dark:border-red-800 dark:bg-red-950/30 dark:text-red-400">
+        <div className="mx-auto mb-3 max-w-md rounded-2xl border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600 dark:border-red-800 dark:bg-red-950/30 dark:text-red-400">
           <strong>Sign-in failed.</strong>{" "}
           {oauthError === "google_auth_failed"
             ? "Google authentication was cancelled. Please try again."
@@ -71,14 +71,14 @@ export default function Login() {
         </div>
       )}
 
-      <div className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-6xl items-center justify-center">
-        <div className="grid w-full overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl dark:border-slate-700 dark:bg-slate-800 md:grid-cols-2">
+      <div className="mx-auto flex w-full max-w-5xl items-center justify-center">
+        <div className="grid w-full max-h-[calc(100vh-6rem)] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-700 dark:bg-slate-800 md:grid-cols-2">
 
           {/* ── Left panel (hero) ─────────────────────────────────────── */}
-          <div className="hidden bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 p-8 text-white md:flex md:flex-col md:justify-between">
+          <div className="hidden bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 p-6 lg:p-8 text-white md:flex md:flex-col md:justify-between">
             <div>
               {/* Logo mark */}
-              <div className="flex items-center gap-3 mb-8">
+              <div className="flex items-center gap-3 mb-4">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur">
                   <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -87,16 +87,16 @@ export default function Login() {
                 <span className="text-lg font-bold tracking-tight">Startup CRM Lite</span>
               </div>
 
-              <h2 className="text-3xl font-semibold leading-tight">
+              <h2 className="text-2xl lg:text-3xl font-semibold leading-tight">
                 Manage leads with<br />clarity and speed.
               </h2>
-              <p className="mt-4 max-w-sm text-sm text-blue-50/90">
+              <p className="mt-2 max-w-sm text-sm text-blue-50/90">
                 Track opportunities, keep your pipeline moving, and stay on top of every customer conversation.
               </p>
             </div>
 
             {/* Feature highlights */}
-            <div className="space-y-3">
+            <div className="space-y-2 lg:space-y-3">
               {[
                 "Real-time lead tracking & analytics",
                 "Google account — one-click sign in",
@@ -110,7 +110,7 @@ export default function Login() {
                 </div>
               ))}
 
-              <div className="mt-4 rounded-2xl border border-white/20 bg-white/10 p-4 text-sm backdrop-blur-sm">
+              <div className="mt-3 rounded-xl border border-white/20 bg-white/10 p-3 text-sm backdrop-blur-sm">
                 <p className="font-medium">Trusted by modern teams</p>
                 <p className="mt-1 text-blue-100">Clean reporting, fast updates, simple onboarding.</p>
               </div>
@@ -118,33 +118,33 @@ export default function Login() {
           </div>
 
           {/* ── Right panel (form) ─────────────────────────────────────── */}
-          <div className="flex flex-col justify-center px-6 py-10 sm:px-8 lg:px-10">
+          <div className="flex flex-col justify-center py-6 px-6 sm:px-8 lg:p-8">
             <div className="text-center">
               {/* Mobile logo */}
-              <div className="mb-5 flex justify-center md:hidden">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-lg">
-                  <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <div className="mb-4 flex justify-center md:hidden">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-lg">
+                  <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
                 </div>
               </div>
 
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-white lg:text-3xl">
                 Welcome back
               </h1>
-              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300 sm:text-base">
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                 Sign in to continue your workspace
               </p>
             </div>
 
-            <div className="mt-8 space-y-5">
+            <div className="mt-5 space-y-4">
               {/* ── Email / Password form ──────────────────────────────── */}
-              <form className="space-y-4" onSubmit={handleSubmit} autoComplete="off">
-                <div className="space-y-4">
+              <form className="space-y-3" onSubmit={handleSubmit} autoComplete="off">
+                <div className="space-y-3">
                   <div>
                     <label
                       htmlFor="email-address"
-                      className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200"
+                      className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200"
                     >
                       Email address
                     </label>
@@ -157,7 +157,7 @@ export default function Login() {
                       onChange={(e) => setEmail(e.target.value)}
                       autoComplete="off"
                       spellCheck="false"
-                      className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500/30"
+                      className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500/30"
                       placeholder="Enter your work email"
                     />
                   </div>
@@ -165,7 +165,7 @@ export default function Login() {
                   <div>
                     <label
                       htmlFor="password"
-                      className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200"
+                      className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200"
                     >
                       Password
                     </label>
@@ -178,7 +178,7 @@ export default function Login() {
                       onChange={(e) => setPassword(e.target.value)}
                       autoComplete="new-password"
                       spellCheck="false"
-                      className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500/30"
+                      className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500/30"
                       placeholder="Enter your password"
                     />
                   </div>
@@ -188,7 +188,7 @@ export default function Login() {
                   id="email-login-btn"
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex w-full justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="flex w-full justify-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">
@@ -217,8 +217,7 @@ export default function Login() {
               <GoogleLoginButton />
             </div>
 
-
-            <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-300">
+            <p className="mt-4 text-center text-sm text-slate-600 dark:text-slate-300">
               New here?{" "}
               <Link
                 to="/register"

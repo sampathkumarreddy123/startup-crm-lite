@@ -50,7 +50,7 @@ export default function Register() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-100 via-white to-blue-50 px-3 pt-20 pb-4 text-slate-900 transition-colors duration-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100 sm:px-6 sm:pt-24 sm:pb-8 lg:px-8">
+    <div className="relative h-screen flex flex-col justify-center bg-gradient-to-br from-slate-100 via-white to-blue-50 px-3 py-4 text-slate-900 transition-colors duration-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100 sm:px-6 lg:px-8 overflow-hidden">
       <header className="absolute top-0 left-0 right-0 z-50 flex h-16 items-center justify-between px-4 sm:px-8 lg:px-12">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm dark:bg-blue-500">
@@ -65,32 +65,32 @@ export default function Register() {
         <DarkModeToggle variant="auth" />
       </header>
       <Toaster />
-      <div className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-6xl items-center justify-center">
-        <div className="grid w-full overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl dark:border-slate-700 dark:bg-slate-800 md:grid-cols-2">
-          <div className="hidden bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 p-8 text-white md:flex md:flex-col md:justify-between">
+      <div className="mx-auto flex w-full max-w-5xl items-center justify-center">
+        <div className="grid w-full max-h-[calc(100vh-6rem)] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-700 dark:bg-slate-800 md:grid-cols-2">
+          <div className="hidden bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 p-6 lg:p-8 text-white md:flex md:flex-col md:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-100">Startup CRM</p>
-              <h2 className="mt-6 text-3xl font-semibold leading-tight">Bring your leads into one calm workspace.</h2>
-              <p className="mt-4 max-w-sm text-sm text-blue-50/90">Create accounts fast, keep your team aligned, and turn every opportunity into momentum.</p>
+              <h2 className="mt-4 text-2xl lg:text-3xl font-semibold leading-tight">Bring your leads into one calm workspace.</h2>
+              <p className="mt-2 max-w-sm text-sm text-blue-50/90">Create accounts fast, keep your team aligned, and turn every opportunity into momentum.</p>
             </div>
-            <div className="rounded-2xl border border-white/20 bg-white/10 p-4 text-sm backdrop-blur-sm">
+            <div className="rounded-xl border border-white/20 bg-white/10 p-3 text-sm backdrop-blur-sm">
               <p className="font-medium">Simple setup</p>
               <p className="mt-1 text-blue-100">No clutter, just the essentials you need to move faster.</p>
             </div>
           </div>
 
-          <div className="px-6 py-8 sm:px-8 lg:px-10">
+          <div className="py-5 px-6 sm:px-8 lg:p-6">
             <div className="text-center">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">Create your account</h1>
-              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300 sm:text-base">
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-white lg:text-3xl">Create your account</h1>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                 Start organizing your pipeline in minutes
               </p>
             </div>
 
-            <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
-              <div className="space-y-4">
+            <form className="mt-4 space-y-3" onSubmit={handleSubmit}>
+              <div className="space-y-2.5">
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">
+                  <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">
                     Name
                   </label>
                   <input
@@ -102,12 +102,12 @@ export default function Register() {
                     onChange={(e) => setName(e.target.value)}
                     autoComplete="off"
                     spellCheck="false"
-                    className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500/30"
+                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-1.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500/30"
                     placeholder="Enter your name"
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">
+                  <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">
                     Email address
                   </label>
                   <input
@@ -119,12 +119,12 @@ export default function Register() {
                     onChange={(e) => setEmail(e.target.value)}
                     autoComplete="off"
                     spellCheck="false"
-                    className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500/30"
+                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-1.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500/30"
                     placeholder="Enter your work email"
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">
+                  <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">
                     Password
                   </label>
                   <input
@@ -136,12 +136,12 @@ export default function Register() {
                     onChange={(e) => setPassword(e.target.value)}
                     autoComplete="new-password"
                     spellCheck="false"
-                    className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500/30"
+                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-1.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500/30"
                     placeholder="Create a strong password"
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">
+                  <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">
                     Confirm password
                   </label>
                   <input
@@ -153,7 +153,7 @@ export default function Register() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     autoComplete="new-password"
                     spellCheck="false"
-                    className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500/30"
+                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-1.5 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500/30"
                     placeholder="Confirm your password"
                   />
                 </div>
@@ -162,13 +162,13 @@ export default function Register() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex w-full justify-center rounded-2xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+                className="flex w-full justify-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Creating account..." : "Create account"}
               </button>
             </form>
 
-            <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-300">
+            <p className="mt-3 text-center text-sm text-slate-600 dark:text-slate-300">
               Already have an account?{' '}
               <Link
                 to="/login"
