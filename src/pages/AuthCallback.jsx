@@ -75,6 +75,7 @@ export default function AuthCallback() {
             </svg>
           </div>
         </div>
+          {error ? (
           <>
             {/* Error state */}
             <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-red-100 dark:bg-red-950/40">
