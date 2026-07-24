@@ -3,12 +3,12 @@ import {
   LayoutDashboard,
   Users,
   BarChart3,
+  UserCircle2,
   LogOut
 } from "lucide-react";
 
 import DarkModeToggle from "./DarkModeToggle";
 import { useAuth } from "../../context/AuthContext";
-
 
 function Sidebar() {
   const { logout } = useAuth();
@@ -34,32 +34,41 @@ function Sidebar() {
       name: "Analytics",
       path: "/analytics",
       icon: <BarChart3 size={20} />
+    },
+    {
+      name: "Profile",
+      path: "/profile",
+      icon: <UserCircle2 size={20} />
     }
   ];
 
   return (
     <>
-      {/* ── Desktop Sidebar ────────────────────────────────────────────── */}
+      {/* Sidebar */}
       <aside
         className="
           hidden md:flex
           flex-col
           md:w-20
           lg:w-64
-          sticky top-0
-          h-screen
-          overflow-y-auto
+          min-h-screen
           bg-white dark:bg-gray-800
           border-r border-gray-200 dark:border-gray-700
           p-4
           transition-colors duration-200
-          shrink-0
         "
       >
         {/* Logo */}
-        <h1 className="hidden lg:block text-2xl font-bold text-blue-600 mb-8">
-          Startup CRM
-        </h1>
+        <div className="flex items-center justify-center lg:justify-start gap-3 mb-8">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm dark:bg-blue-500">
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+          <span className="hidden lg:block text-xl font-bold tracking-tight text-blue-600 dark:text-blue-500">
+            Startup CRM
+          </span>
+        </div>
 
         {/* Navigation */}
         <nav className="flex flex-col gap-3 flex-1">
@@ -150,10 +159,6 @@ function Sidebar() {
             {link.icon}
           </NavLink>
         ))}
-
-        {/* Dark Mode Toggle — icon only on mobile */}
-        <DarkModeToggle compact />
-
         <button
           onClick={handleLogout}
           className="p-3 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20"
@@ -167,4 +172,4 @@ function Sidebar() {
   );
 }
 
-export default Sidebar;
+export default Sidebar;

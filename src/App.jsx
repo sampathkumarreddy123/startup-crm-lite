@@ -29,11 +29,18 @@ function AppContent() {
         <div className="mx-auto w-full max-w-7xl">
           {/* ── App Header ─────────────────────────────────────────────── */}
           <header className="mb-6 flex items-center justify-between rounded-2xl border border-gray-200 bg-white/90 px-4 py-3 shadow-sm backdrop-blur dark:border-gray-700 dark:bg-gray-800/90">
-            <div>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Workspace</p>
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Startup CRM Lite
-              </h2>
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm dark:bg-blue-500">
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Workspace</p>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Startup CRM Lite
+                </h2>
+              </div>
             </div>
 
             {/* User menu with Google avatar / initials dropdown */}
