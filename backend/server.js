@@ -76,7 +76,7 @@ const allowedOrigins = [
   process.env.FRONTEND_URL,
   process.env.CLIENT_URL,
   "http://localhost:5173",
-  "https://your-app.vercel.app"
+  "https://startup-crm-lite-project.vercel.app"
 ].filter(Boolean);
 
 const corsOptions = {
