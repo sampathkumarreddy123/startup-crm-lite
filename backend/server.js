@@ -17,7 +17,7 @@ import authRoutes from "./routes/authRoutes.js";
 import leadRoutes from "./routes/leadRoutes.js";
 import { createHealthPayload, getHealthStatusCode } from "./utils/health.js";
 
-// Load environment variables
+// Load environment variables (only in development; Railway injects them directly)
 dotenv.config({
   path: path.resolve(process.cwd(), ".env"),
 });
