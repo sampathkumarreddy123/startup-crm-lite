@@ -23,7 +23,7 @@ passport.use(
         (process.env.NODE_ENV === "production"
           ? (process.env.BACKEND_URL
               ? `${process.env.BACKEND_URL}/api/auth/google/callback`
-              : "https://startup-crm-lite-production-071e.up.railway.app/api/auth/google/callback")
+              : "https://startup-crm-lite-production-045a.up.railway.app/api/auth/google/callback")
           : "/api/auth/google/callback"),
       scope: ["profile", "email"]
     },
