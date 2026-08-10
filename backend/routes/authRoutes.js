@@ -12,7 +12,6 @@ import {
 } from "../controllers/authController.js";
 import protect from "../middleware/auth.js";
 import validate from "../middleware/validate.js";
-import { normalizePublicUrl } from "../utils/url.js";
 
 const router = express.Router();
 
@@ -41,19 +40,16 @@ router.get(
 router.get(
   "/google/callback",
   (req, res, next) => {
-    const frontendUrl = normalizePublicUrl(
-      process.env.FRONTEND_URL || process.env.CLIENT_URL,
-      process.env.NODE_ENV === "production"
-        ? "https://startup-crm-lite-production-045a.up.railway.app"
-        : (() => {
-            const host = req.get("host");
-            if (host) {
-              const hostname = host.split(":")[0];
-              return `http://${hostname}:5173`;
-            }
-            return "http://localhost:5173";
-          })()
-    );
+    const frontendUrl = process.env.NODE_ENV === "production"
+      ? (process.env.FRONTEND_URL || process.env.CLIENT_URL || "https://startup-crm-lite-production-071e.up.railway.app")
+      : (() => {
+          const host = req.get("host");
+          if (host) {
+            const hostname = host.split(":")[0];
+            return `http://${hostname}:5173`;
+          }
+          return "http://localhost:5173";
+        })();
 
     passport.authenticate("google", {
       session: false,

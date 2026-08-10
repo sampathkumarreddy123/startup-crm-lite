@@ -2,13 +2,9 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import { successResponse, errorResponse } from "../utils/apiResponse.js";
 import { normalizeEmail } from "../utils/email.js";
-import { normalizePublicUrl } from "../utils/url.js";
 
 const isProd = process.env.NODE_ENV === "production";
-const CLIENT_URL = normalizePublicUrl(
-  process.env.FRONTEND_URL || process.env.CLIENT_URL,
-  isProd ? "https://startup-crm-lite-production-045a.up.railway.app" : "http://localhost:5173"
-);
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 
 /**
  * Generate a signed JWT for a given user ID.
@@ -52,7 +48,8 @@ export const googleCallback = (req, res) => {
     if (!req.user) {
       return res.redirect(`${CLIENT_URL}/login?error=google_auth_failed`);
     }
-
+    console.log("CLIENT_URL =", process.env.CLIENT_URL);
+console.log("FRONTEND_URL =", process.env.FRONTEND_URL);
     const token = generateToken(req.user._id);
 
     // Set JWT in HTTP-only cookie

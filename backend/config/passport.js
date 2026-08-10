@@ -1,7 +1,6 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import User from "../models/User.js";
-import { normalizePublicUrl } from "../utils/url.js";
 
 /**
  * Configure Passport.js with the Google OAuth 2.0 strategy.
@@ -22,7 +21,9 @@ passport.use(
       callbackURL:
         process.env.CALLBACK_URL ||
         (process.env.NODE_ENV === "production"
-          ? `${normalizePublicUrl(process.env.BACKEND_URL, "https://startup-crm-lite-production-045a.up.railway.app")}/api/auth/google/callback`
+          ? (process.env.BACKEND_URL
+              ? `${process.env.BACKEND_URL}/api/auth/google/callback`
+              : "https://startup-crm-lite-production-071e.up.railway.app/api/auth/google/callback")
           : "/api/auth/google/callback"),
       scope: ["profile", "email"]
     },

@@ -10,8 +10,8 @@ const apiBaseUrl = normalizeApiBaseUrl(
         ? `${window.location.protocol}//${window.location.hostname}:5000`
         : "http://localhost:5000")
     : (typeof window !== "undefined" && window.location.origin
-      ? window.location.origin
-      : "https://startup-crm-lite-production-045a.up.railway.app")
+        ? window.location.origin
+        : "https://startup-crm-lite-production-071e.up.railway.app")
 );
 
 const api = axios.create({
