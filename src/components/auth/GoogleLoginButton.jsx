@@ -1,3 +1,5 @@
+import { normalizeApiBaseUrl } from "../../utils/baseUrl";
+
 /**
  * GoogleLoginButton — "Continue with Google" OAuth button.
  *
@@ -9,14 +11,16 @@
  * @param {string} [props.className] - Additional Tailwind classes
  */
 export default function GoogleLoginButton({ className = "" }) {
-  const API_URL = import.meta.env.VITE_API_URL ||
-    (import.meta.env.DEV
+  const API_URL = normalizeApiBaseUrl(
+    import.meta.env.VITE_API_URL,
+    import.meta.env.DEV
       ? (typeof window !== "undefined" && window.location.hostname
           ? `${window.location.protocol}//${window.location.hostname}:5000`
           : "http://localhost:5000")
       : (typeof window !== "undefined" && window.location.origin
           ? window.location.origin
-          : "https://startup-crm-lite-production-071e.up.railway.app"));
+          : "https://startup-crm-lite-production-071e.up.railway.app")
+  );
 
   /**
    * Redirect to the backend Google OAuth initiator endpoint.

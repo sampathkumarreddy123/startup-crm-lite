@@ -1,14 +1,18 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { normalizeApiBaseUrl } from "../utils/baseUrl";
 
 // Create Axios instance with a clear backend target for production and local dev
-const apiBaseUrl = import.meta.env.VITE_API_URL || (import.meta.env.DEV
-  ? (typeof window !== "undefined" && window.location.hostname
-      ? `${window.location.protocol}//${window.location.hostname}:5000`
-      : "http://localhost:5000")
-  : (typeof window !== "undefined" && window.location.origin
-      ? window.location.origin
-      : "https://startup-crm-lite-production-071e.up.railway.app"));
+const apiBaseUrl = normalizeApiBaseUrl(
+  import.meta.env.VITE_API_URL,
+  import.meta.env.DEV
+    ? (typeof window !== "undefined" && window.location.hostname
+        ? `${window.location.protocol}//${window.location.hostname}:5000`
+        : "http://localhost:5000")
+    : (typeof window !== "undefined" && window.location.origin
+        ? window.location.origin
+        : "https://startup-crm-lite-production-071e.up.railway.app")
+);
 
 const api = axios.create({
   baseURL: apiBaseUrl,
