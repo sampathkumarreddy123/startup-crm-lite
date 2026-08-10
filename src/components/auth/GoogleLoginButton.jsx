@@ -19,7 +19,7 @@ export default function GoogleLoginButton({ className = "" }) {
           : "http://localhost:5000")
       : (typeof window !== "undefined" && window.location.origin
           ? window.location.origin
-          : "https://startup-crm-lite-production-071e.up.railway.app")
+          : "https://startup-crm-lite-production-045a.up.railway.app")
   );
 
   /**
